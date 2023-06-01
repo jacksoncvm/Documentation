@@ -136,7 +136,11 @@ $(document).ready(function() {
 		a.html(a.html().replace(/%%/g,'#'));
 	});
 
-	localStorage.clear();
+	try {
+		var themeSetting = localStorage.getItem('theme');
+		localStorage.clear();
+		localStorage.setItem('theme',themeSetting);
+	} catch(error) {}
 
 	var urlParams = new URLSearchParams(window.location.search);
 	//console.log(urlParams);
@@ -196,6 +200,15 @@ $(document).ready(function() {
 			$("affix .level1").children().eq(1).children('a').prepend(". ");
 		}
 	}, "100")
+
+
+	// Set theme
+	var themeToggle = document.getElementById("theme-toggler");
+	themeToggle.addEventListener("click", function() {
+		document.body.classList.toggle("dark");
+		var theme = document.body.classList.contains("dark") ? "dark" : "light";
+		localStorage.setItem("theme", theme);
+	});
 });
 
 	
